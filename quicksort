@@ -1,0 +1,177 @@
+
+
+
+
+	import java.util.Arrays;
+
+	public class Quick {
+		  private double array[][];
+		  private double totalArray[][];
+		  private double newArray[][];
+		    private int length;
+		    private static int col=0;
+			Output output=new Output();
+			private  static int  count=0;
+		    
+		    
+		    public void attributes(double[][] fileArray, String numOfDimsToSort,String sortOrder, String outputFilename) {
+		    	
+		    
+		    	
+		    	while(col<Integer.parseInt(numOfDimsToSort))
+		    	{//while başlangç
+		    	count=0;
+		    		
+		    		if((Integer.parseInt(numOfDimsToSort)==1) && col==0 ){//if başladı
+		    			
+		    			sort(fileArray);
+		    			
+		    			output.writeFile(outputFilename, fileArray,sortOrder);
+		    			
+		    			
+		    		}//iff bittii
+		    		
+		    		else if(col==0){
+		    			
+		    			sort(fileArray);
+		    			totalArray=new double[fileArray.length][Read.features];
+		    			this.totalArray=fileArray;
+		    			
+		    			
+		    			
+		    		}
+		    		else if(col>0)
+		    		
+		    		{//else if başlangç en son olan 
+		    			
+		    			for(int y=1;y<totalArray.length;y++)
+		    			{//for başladıı
+		    						
+		    						
+		    						if(totalArray[y][col-1]==totalArray[y-1][col-1]){
+		    			                   count++;}
+		    							else
+		    						  {//1
+		    									if(count>=1){//2 iiff başladııı
+		    										
+		    										newArray=new double[count+1][Read.features];
+		    									
+		    										int newArraycount=0;
+		    										int x=y-count-1;
+		    										
+		    										for(int c=x;c<=y-1;c++){
+		    										for (int m = 0; m < Read.features; m++)
+		    										{
+		    									newArray[newArraycount][m]=totalArray[c][m];
+		    								
+		    									    }
+		    										newArraycount++;
+		    										}
+		    										
+		    										
+		    										sort(newArray);
+		    									
+		    										
+		    										int p=0;
+		    									for(int z=y-count-1;z<=y-1;z++){
+		    										for(int i=0;i<Read.features;i++){
+		    											totalArray[z][i]=newArray[p][i];}
+		    										p++;
+		    									}
+		    									count=0;
+		    										output.writeFile(outputFilename, totalArray,sortOrder);
+		    										
+		    					   }//2 if bittiiiii
+		    									else {
+		    										
+		    										count=0;
+		    									}
+		    									
+		    										
+		    						 }//1
+		    							
+		    							
+		    							
+		    					
+		    						
+		    							
+		    							
+		    							
+		    						}//for btti
+		    						
+
+		    			
+		    			
+		    			
+		    			
+		    			
+		    			
+		    			
+		    		
+		    			
+		    		}// else if btiiş en son yazdıgm 
+		    		
+		    		col++;
+		    		
+		    	}//while bitiş
+		    	
+		    
+		    }
+		   public void sort(double[][] inputArr) {
+		         
+		        if (inputArr == null || inputArr.length == 0) {
+		            return;
+		        }
+		        this.array = inputArr;
+		        length = inputArr.length;
+		        quickSort(0, length - 1);
+		    }
+		   
+		   private void quickSort(int lowerIndex, int higherIndex) {
+		         
+		        int i = lowerIndex;
+		        int j = higherIndex;
+		       
+		        double pivot = array[lowerIndex+(higherIndex-lowerIndex)/2][col];
+		        System.out.println(pivot);
+		      
+		        // Divide into two arrays
+		        
+		       while (i <= j) {
+		            
+		            while (array[i][col] < pivot) {
+		                i++;
+		            }
+		            while (array[j][col] > pivot) {
+		                j--;
+		            }
+		            if (i <= j) {
+		                exchangeNumbers(i, j);
+		                //move index to next position on both sides
+		                i++;
+		                j--;
+		            }
+		        }
+		        // call quickSort() method recursively
+		        if (lowerIndex < j)
+		            quickSort(lowerIndex, j);
+		        if (i < higherIndex)
+		            quickSort(i, higherIndex);
+		    }
+		 
+		    private void exchangeNumbers(int i, int j) {
+		    	for(int y=0;y<Read.features;y++){
+		    	
+		        double temp = array[i][y];
+		        array[i][y] = array[j][y];
+		        array[j][y] = temp;
+		    }
+		    }
+		   
+		    }
+
+		
+
+
+
+
