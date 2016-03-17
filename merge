@@ -1,0 +1,190 @@
+
+public class Merge {
+
+	private double[][] tempMergArr;
+	private double[][] totalArray;
+	private double[][] newArray;
+	private int length;
+	private double[][] array;
+	private int numberOfDims;
+	
+	private static int count=0;
+	
+	private static int n;
+	Output output=new Output();
+
+	public void attributes(double[][] fileArray, String numOfDimsToSort,
+			String sortOrder, String outputFilename) {
+		this.numberOfDims = Integer.parseInt(numOfDimsToSort);
+		
+		
+ n=0;	
+while(n<numberOfDims){
+	count=0;
+	
+	if((numberOfDims==1) && (n==0) ){
+		
+		sort(fileArray);
+		//for(int i=0;i<10;i++){//
+				//	for(int j=0;j<4;j++)
+						//System.out.println(array[i][j]);
+		output.writeFile(outputFilename, fileArray,sortOrder);
+		
+		
+	
+	
+	}
+	
+	
+	
+	
+	else if(n==0){
+		
+		sort(fileArray);
+		totalArray=new double[fileArray.length][];
+		this.totalArray=fileArray;
+		
+		
+		
+	}
+	
+		
+	
+	
+	else if(n>0)
+	{
+		
+	
+		for(int y=1;y<totalArray.length;y++)
+{//for başladıı
+		
+			
+			if(totalArray[y][n-1]==totalArray[y-1][n-1]){
+                   count++;}
+		
+				else
+			  {//1
+						if(count>=1){//2 iiff başladııı
+							
+							newArray=new double[count+1][Read.features];
+						
+							int newArraycount=0;
+							int x=y-count-1;
+							
+							for(int c=x;c<=y-1;c++){
+							for (int m = 0; m <Read.features; m++)
+							{
+						newArray[newArraycount][m]=totalArray[c][m];
+					
+						    }
+							newArraycount++;
+							}
+							
+							
+							sort(newArray);
+						
+							
+							int p=0;
+						for(int z=y-count-1;z<=y-1;z++){
+							for(int i=0;i<Read.features;i++){
+								totalArray[z][i]=newArray[p][i];}
+							p++;
+						}
+						count=0;
+							output.writeFile(outputFilename, totalArray,sortOrder);
+							
+		   }//2 if bittiiiii
+						else {
+							
+							count=0;
+						}
+						
+							
+			 }//1
+				
+				
+				
+		
+			
+				
+				
+				
+			}//for btti
+			
+
+	
+		
+	}	//else if n>0
+	
+	n++;
+	
+	
+}//büyük whilw
+	
+
+	
+	}//metot bitis
+	  
+	  
+	 
+
+	public void sort(double[][] inputArr) {
+
+		this.array = inputArr;
+		this.length = inputArr.length;
+		
+		this.tempMergArr = new double[length][Read.features];
+		doMergeSort(0, length - 1);
+	}
+
+	private void doMergeSort(int lowerIndex, int higherIndex) {
+
+		if (lowerIndex < higherIndex) {
+			int middle = lowerIndex + (higherIndex - lowerIndex) / 2;
+			doMergeSort(lowerIndex, middle);
+
+			doMergeSort(middle + 1, higherIndex);
+
+			mergeParts(lowerIndex, middle, higherIndex,n);
+		}
+	}
+
+	private void mergeParts(int lowerIndex, int middle, int higherIndex,int n) {
+
+		for (int i = lowerIndex; i <= higherIndex; i++) {
+			for (int j = 0; j < Read.features; j++)
+				tempMergArr[i][j] = array[i][j];
+		}
+		int i = lowerIndex;
+		int j = middle + 1;
+		int k = lowerIndex;
+		while (i <= middle && j <= higherIndex) {
+
+			if (tempMergArr[i][n] <= tempMergArr[j][n]) {
+
+				for (int m = 0; m < Read.features; m++) {
+					array[k][m] = tempMergArr[i][m];
+				}
+				i++;
+			} else {
+				for (int m = 0; m < Read.features; m++) {
+					array[k][m] = tempMergArr[j][m];
+				}
+				j++;
+			}
+			k++;
+		}
+
+		while (i <= middle) {
+			for (int m = 0; m < Read.features; m++) {
+				array[k][m] = tempMergArr[i][m];
+			}
+			k++;
+			i++;
+
+		}
+
+	}
+
+}
+
