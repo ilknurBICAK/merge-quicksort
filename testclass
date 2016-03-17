@@ -1,0 +1,47 @@
+
+
+
+import java.io.IOException;
+
+public class HW2 {
+	
+
+	public static void main(String[] args) throws IOException {
+		
+		Read d=new Read();
+		d.readfile(args[0]);
+		
+if(!(args[2].equalsIgnoreCase("asc")  ||  args[2].equalsIgnoreCase("desc"))){
+			
+			System.out.println("ERROR SORT ORDER");
+			
+		}
+		
+		
+		if (args[4].equalsIgnoreCase("mergesort")){
+			Merge merge=new Merge();
+			merge.attributes(d.readfile(args[0]), args[1], args[2],args[3]);
+			
+			
+			
+		}
+
+	else if(args[4].equalsIgnoreCase("quicksort")){
+		Quick quick=new Quick();
+		quick.attributes(d.readfile(args[0]), args[1], args[2],args[3]);
+		
+		
+		
+	}
+		
+		
+	
+	
+	 
+		
+
+	}
+	
+	
+
+}
