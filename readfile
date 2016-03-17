@@ -1,0 +1,61 @@
+	import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.io.IOException;
+
+public class Read {
+	
+
+//İLKNUR BIÇAK 1205011041 1 SECTION
+
+
+		public static int numberofapplication;
+		public static int features;
+		public  double[][] myArray;
+		 private double[][] tempMergArr;
+		 private double[][] totalArray;
+		    
+		
+		
+		
+		public  double [][]  readfile(String file) throws IOException
+		{
+			
+	FileReader fileReader = new FileReader(file);
+	BufferedReader br = new BufferedReader(fileReader);
+
+	String line;
+
+	line=br.readLine();
+	String[] split=line.split(" ");
+	numberofapplication=Integer.parseInt(split[0]);
+	features=Integer.parseInt(split[1]);
+
+	myArray=new double[numberofapplication][features];
+	totalArray=new double[numberofapplication][features];
+
+
+	int row=0;
+
+
+
+	while((line=br.readLine())!=null){
+
+		
+		String [] val=line.split(" ");
+
+		
+		
+		for(int col=0;col<4;col++){
+			myArray[row][col]=Double.parseDouble(val[col]);
+
+		}
+		
+		
+		row++;
+	}
+
+
+	br.close();
+	return myArray;}
+
+}
